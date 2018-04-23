@@ -25,7 +25,7 @@ extension Double {
     }
 }
 
-var brightBlue = UIColor(red:0.10, green:0.78, blue:0.85, alpha:1.0)
+var brightBlue = UIColor(red:0.11, green:0.67, blue:0.92, alpha:1.0)
 
 class ProductModel {
     let rootUrl = "https://mobile-tha-server.appspot.com"

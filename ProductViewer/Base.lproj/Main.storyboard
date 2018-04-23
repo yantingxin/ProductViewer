@@ -105,7 +105,7 @@
                                     <outlet property="productImage" destination="bEJ-f4-8x3" id="jxU-BF-nOH"/>
                                     <outlet property="ratingView" destination="h1a-xV-az2" id="Cg2-A6-cIq"/>
                                     <outlet property="statusLabel" destination="KzE-fh-Sbp" id="coV-bn-vWI"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="showDetailSegue" id="1oH-J8-uer"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="showDetailSegue" id="oF8-FD-ej8"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -120,12 +120,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GdN-jC-4JR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-52" y="53.523238380809602"/>
+            <point key="canvasLocation" x="-478" y="-405"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ProductDetailViewController" customModule="ProductViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="BYZ-38-t0r" customClass="ProductDetailViewController" customModule="ProductViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="top" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,7 +168,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Price">
                                         <attributes>
-                                            <font key="NSFont" size="24" name="Palatino-Roman"/>
+                                            <font key="NSFont" size="24" name="Palatino-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -230,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="661.60000000000002" y="60.719640179910051"/>
+            <point key="canvasLocation" x="311" y="-405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r8d-xr-ZcB">
@@ -248,7 +248,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFe-S1-wEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-746" y="48"/>
+            <point key="canvasLocation" x="-1278" y="-405"/>
         </scene>
     </scenes>
 </document>

@@ -24,7 +24,8 @@ class ProductTableViewController: UITableViewController {
                 indexPaths.append(indexPath)
                 index += 1
             }
-            self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+            UIView.setAnimationsEnabled(false)
+            self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.none)
         }
     }
     
@@ -32,7 +33,8 @@ class ProductTableViewController: UITableViewController {
         self.productArray[index].setImage(image: image!)
         DispatchQueue.main.async {
             let indexPath = IndexPath(item: index, section: 0)
-            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            UIView.setAnimationsEnabled(false)
+            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
         }
     }
 
@@ -96,7 +98,9 @@ class ProductTableViewController: UITableViewController {
         if segue.identifier == "showDetailSegue" {
             let destination = segue.destination as! ProductDetailViewController
             let index = self.tableView.indexPathForSelectedRow?.row
-            destination.product = productArray[index!]
+            destination.products = productArray
+            destination.currentIndex = index
+            destination.productModel = productModel
         }
     }
  

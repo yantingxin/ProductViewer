@@ -18,11 +18,46 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var ratingView : RatingControl!
     
-    var product :Product!
+    var products :[Product]!
+    var currentIndex :Int!
+    var productModel: ProductModel!
+    
+    @objc func respondToSwipeGesture (gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right :
+                if currentIndex > 0 {
+                    currentIndex = currentIndex - 1
+                    populateProduct(product: products[currentIndex])
+                }
+            case UISwipeGestureRecognizerDirection.left :
+                if currentIndex < products.count - 1 {
+                    currentIndex = currentIndex + 1
+                    populateProduct(product: products[currentIndex])
+                    fetchNextImage(index: currentIndex+1)
+                }
+            default:
+                print("Swiped unknown direction")
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        populateProduct()
+        
+        // disable navigator's gesture recognizer to avoid confusion
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        populateProduct(product: products[currentIndex])
+        fetchNextImage(index: currentIndex+1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,11 +65,23 @@ class ProductDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    private func populateProduct() {
+    private func fetchNextImage(index: Int) {
+        if index >= 0 && index < products.count && products[index].image == nil {
+            productModel.fetchImage(url: products[index].imageUrl, index: index, completionHandler: updateImage)
+        }
+    }
+    
+    private func updateImage(index: Int, image: UIImage?) {
+        products[index].setImage(image: image!)
+    }
+    
+    private func populateProduct(product: Product) {
         name?.text = product.name
+        name?.textColor = brightBlue
         ratingView.setRating(rating: Int(round(product.review)))
         count?.text  = String("(\(product.reviewCount))")
-        price?.text  = String("$\(product.price.format(format: ".2"))") 
+        price?.text  = String("$\(product.price.format(format: ".2"))")
+        desc?.attributedText = product.longDesc.htmlToAttributedText
         
         if product.status {
             status?.text = "In stock"
@@ -43,8 +90,12 @@ class ProductDetailViewController: UIViewController {
             status?.text = "Out of stock"
             status?.textColor = UIColor.red
         }
-        desc?.attributedText = product.longDesc.htmlToAttributedText
-        image?.image = product.image
+        
+        if product.image == nil {
+            image?.image = UIImage(named: "default")
+        } else {
+            image?.image = product.image
+        }
     }
 
 }
