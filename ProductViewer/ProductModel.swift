@@ -75,6 +75,10 @@ class ProductModel {
         }
     }
     
+    private func parseText(text: String) -> String {
+        return text.replacingOccurrences(of: "��", with: " ")
+    }
+    
     private func parseProduct(data: [String: Any]!, completionHandler: @escaping (([Product])!) -> Void) -> Void {
         if self.totalPages == nil {
             self.totalPages = setTotalPages(total: data["totalProducts"] as! Int, size: self.pageSize)
@@ -85,7 +89,7 @@ class ProductModel {
         
         for product in products {
             let id = product["productId"] as! String
-            let name  = product["productName"] as! String
+            let name  = parseText(text: product["productName"] as! String)
             let price = parsePrice(raw: product["price"] as! String)!
             let imageUrl = generateImageUrl(imageUrl: product["productImage"] as! String)
             let rating = product["reviewRating"] as! Double

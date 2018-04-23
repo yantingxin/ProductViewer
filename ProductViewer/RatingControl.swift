@@ -53,9 +53,13 @@ import UIKit
     }
     
     public func setRating(rating: Int) {
-        self.rating = rating
-        for i in 0..<rating {
-            ratingList[i].isSelected = true
+        for i in 0..<starCount {
+            if i<rating {
+                ratingList[i].isSelected = true
+            } else {
+                ratingList[i].isSelected = false
+            }
+            
         }
      }
 }

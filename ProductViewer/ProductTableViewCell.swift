@@ -15,7 +15,7 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var ratingView: RatingControl!
+    @IBOutlet weak var ratingView: RatingControl! = RatingControl()
     
     override func awakeFromNib() {
         super.awakeFromNib()
