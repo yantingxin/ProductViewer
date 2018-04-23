@@ -3,10 +3,6 @@
 ### Description
 A simple IOS app that retrieves a list of products and display them in a table view and detail view.
 
-
-### API
-https://mobile-tha-server.appspot.com
- 
 ### Product list
 It contains a list of all products returned by an HTTP GET request from the API.
 It supports lazy loading of images while actively loading products metadata page by page since 1) metadata is much smaller than images and downloading them won't cause any perceivable delay, and 2) metadata can be used to provide usable user experience prior to image downloads.
