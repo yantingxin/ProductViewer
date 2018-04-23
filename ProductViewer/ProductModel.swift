@@ -2,6 +2,9 @@
 //  ProductModel.swift
 //  ProductViewer
 //
+//  Data model for product VC.
+//  Implements simple HTTP GET and data retrival.
+//
 //  Created by Terry Yan on 4/21/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
@@ -31,13 +34,10 @@ class ProductModel {
     let rootUrl = "https://mobile-tha-server.appspot.com"
     let path = "walmartproducts"
     let noDescString = "<p>no description</p>"
-    
-    let batchSize = 3
     let pageSize  = 15  // max = 30
     
     var currentPage = 1
     var totalPages :Int?
-    
     
     private func makeGETRequest(url: URL, completionHandler: @escaping (([Product])!) -> Void) -> Void {
         let urlRequest = URLRequest(url: url)
@@ -78,7 +78,6 @@ class ProductModel {
     private func parseProduct(data: [String: Any]!, completionHandler: @escaping (([Product])!) -> Void) -> Void {
         if self.totalPages == nil {
             self.totalPages = setTotalPages(total: data["totalProducts"] as! Int, size: self.pageSize)
-            print("total pages = \(self.totalPages!)")
         }
         
         let products:[[String: Any]] = data["products"] as! [[String: Any]]
@@ -93,12 +92,12 @@ class ProductModel {
             let count = product["reviewCount"] as! Int
             let status = product["inStock"] as! Bool
             var shortDesc = noDescString
-            if product["shortDescription"] != nil {
-                shortDesc = (product["shortDescription"] as! String)//.htmlToAttributedText
+            if product["shortDescription"] != nil {             // short description can be nil
+                shortDesc = (product["shortDescription"] as! String)
             }
             var longDesc = noDescString
-            if product["longDescription"] != nil {
-                longDesc = (product["longDescription"] as! String)//.htmlToAttributedText
+            if product["longDescription"] != nil {              // long description can be nil
+                longDesc = (product["longDescription"] as! String)
             }
         
             let newProduct = Product(id: id, name: name, status: status, price: price, review: rating, reviewCount: count, shortDesc: shortDesc, longDesc: longDesc, imageUrl: imageUrl)
@@ -106,12 +105,13 @@ class ProductModel {
         }
         completionHandler(productArray)
         self.currentPage += 1;
+        
+        // load product metadata of next page.
         if self.currentPage < self.totalPages! {
-            self.fetchProduct(completionHandler: completionHandler) // keep fetching product info.
+            self.fetchProduct(completionHandler: completionHandler)
         }
     }
    
-    // fetch 2 pages at a time.
     public func fetchProduct(completionHandler: @escaping (([Product])!) -> Void) -> Void {
         let url = generateProductUrl()
         self.makeGETRequest(url: url, completionHandler: completionHandler)
@@ -131,6 +131,7 @@ class ProductModel {
         return Int(ceil(Double(total) / Double(size)))
     }
     
+    // converting price to Double might not be necessary for this project, but a good practice in general.
     private func parsePrice(raw: String) -> Double? {
         return Double(raw.replacingOccurrences(of: ",", with: "").dropFirst())
     }

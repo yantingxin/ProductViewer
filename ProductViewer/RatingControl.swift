@@ -2,6 +2,9 @@
 //  RatingControl.swift
 //  ProductViewer
 //
+// A simple star rating implementation by taking advantage of button statuses.
+// It only supports whole star rating now.
+//
 //  Created by Terry Yan on 4/22/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
@@ -9,17 +12,14 @@
 import UIKit
 
 @IBDesignable class RatingControl: UIStackView {
+    private var ratingList = [UIButton]()
+    var rating = 0
     @IBInspectable var starSize: CGSize = CGSize(width: 20.0, height: 20.0) {
-        didSet { setupButtons() }
+        didSet { setupRatings() }
     }
     @IBInspectable var starCount: Int = 5 {
-        didSet { setupButtons() }
+        didSet { setupRatings() }
     }
-    
-//    private var starList = [UIImageView]()
-    private var ratingButtons = [UIButton]()
-    
-    var rating = 0
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
@@ -29,47 +29,33 @@ import UIKit
         super.init(frame: frame)
     }
     
-    private func setupButtons() {
+    private func setupRatings() {
         self.backgroundColor = UIColor.white
-        for button in ratingButtons {
-            removeArrangedSubview(button)
-            button.removeFromSuperview()
+        for star in ratingList {
+            removeArrangedSubview(star)
+            star.removeFromSuperview()
         }
-        ratingButtons.removeAll()
+        ratingList.removeAll()
         
         let bundle = Bundle(for: type(of: self))
         let emptyStar = UIImage(named:"starEmpty", in: bundle, compatibleWith: self.traitCollection)
         let fullStar  = UIImage(named:"starFull",  in: bundle, compatibleWith: self.traitCollection)
         
         for _ in 0..<starCount {
-            let button = UIButton()
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.heightAnchor.constraint(equalToConstant: starSize.height).isActive = false
-            button.widthAnchor.constraint(equalToConstant: starSize.width).isActive = false
-            button.setImage(emptyStar, for: .normal)
-            button.setImage(fullStar,  for: .selected)
-            button.isUserInteractionEnabled = false
+            let star = UIButton()
+            star.setImage(emptyStar, for: .normal)
+            star.setImage(fullStar,  for: .selected)
+            star.isUserInteractionEnabled = false   // we don't allow user input rating in this case.
             
-            addArrangedSubview(button)
-            ratingButtons.append(button)
+            addArrangedSubview(star)
+            ratingList.append(star)
         }
     }
     
     public func setRating(rating: Int) {
         self.rating = rating
         for i in 0..<rating {
-            ratingButtons[i].isSelected = true
+            ratingList[i].isSelected = true
         }
      }
-    
-    
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ProductViewer
 //
-//  Created by Terry Yan on 4/20/18.
+//  Created by Terry Yan on 4/21/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
 
@@ -37,7 +37,7 @@ class ProductDetailViewController: UIViewController {
                     fetchNextImage(index: currentIndex+1)
                 }
             default:
-                print("Swiped unknown direction")
+                break
             }
         }
     }

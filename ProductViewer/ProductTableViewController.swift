@@ -2,7 +2,7 @@
 //  ProductTableViewController.swift
 //  ProductViewer
 //
-//  Created by Terry Yan on 4/20/18.
+//  Created by Terry Yan on 4/21/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
 
@@ -14,7 +14,6 @@ class ProductTableViewController: UITableViewController {
     var productModel = ProductModel()
     
     private func updateProducts(products: [Product]?) {
-        print("Updating UI: current size = \(productArray.count)")
         DispatchQueue.main.async {
             var index = self.productArray.count
             var indexPaths = [IndexPath]()
@@ -41,17 +40,10 @@ class ProductTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         productModel.fetchProduct(completionHandler: updateProducts)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,6 +67,7 @@ class ProductTableViewController: UITableViewController {
         cell.ratingView.setRating(rating: Int(round(product.review)))
         cell.countLabel.text = String("(\(product.reviewCount))")
         
+        // converting status to Bool is not necessary for this project, but a good practice in general.
         if product.status {
             cell.statusLabel.text = "In stock"
             cell.statusLabel.textColor = brightBlue

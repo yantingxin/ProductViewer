@@ -2,7 +2,7 @@
 //  ProductTableViewCell.swift
 //  ProductViewer
 //
-//  Created by Terry Yan on 4/20/18.
+//  Created by Terry Yan on 4/21/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
 
@@ -19,12 +19,10 @@ class ProductTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
 
 }

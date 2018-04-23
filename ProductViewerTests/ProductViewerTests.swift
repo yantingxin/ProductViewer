@@ -2,7 +2,7 @@
 //  ProductViewerTests.swift
 //  ProductViewerTests
 //
-//  Created by Terry Yan on 4/20/18.
+//  Created by Terry Yan on 4/21/18.
 //  Copyright © 2018 Terry Yan. All rights reserved.
 //
 
@@ -20,19 +20,4 @@ class ProductViewerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func generateProductUrlTest() {
-        let expected = URL(string: "https://mobile-tha-server.appspot.com/images/image5.jpeg")
-        let testObj = ProductModel()
-        let outcome = testObj.generateImageUrl(imageUrl: "images/image5.jpeg")
-        XCTAssert(expected == outcome)
-    }
-    
-
-    
-//    func testProductInitSuccess() {
-////        let testProduct = ProductModel.init(image: nil, name: "test product", startus: "in stock")
-////        XCTAssertNotNil(testProduct)
-//    }
-    
 }
