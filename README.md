@@ -13,7 +13,9 @@ It supports lazy loading of images while actively loading products metadata page
 
 + Lazy loading of images: when a user scrolls to the bottom of the current list, we donload the images for next page.
 
-+ UI: each product cell contains image, name, price, rating, rating count, and in stock status. A simple rating control is implemented to display rating in stars, with whole star value only.
++ UI: try to have the similar look and feel as the Walmart app. Each product cell contains image, name, price, rating, rating count, and in stock status. A simple rating control is implemented to display rating in stars, with whole star value only.\\
+
++ Corner cases: we filter out the non human readable characters in the item names.
 
 ### Product details
 It displays the detailed information of the selected product item. 
@@ -23,3 +25,5 @@ It displays the detailed information of the selected product item.
 + Lazy loading of images: when a user swipe to an item, we download the image of the next item so that when the use swipe left again, the image is already there and the detailed view is complete.
 
 + UI: it displays the long description following the HTML format.
+
++ Corner cases: some items don't have descriptions (long or short). Display a default descripion in this case. 
